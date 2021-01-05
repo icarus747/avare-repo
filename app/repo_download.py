@@ -27,7 +27,6 @@ def populate_repository(url, zipfiles, dir_path):
 def parse_web(response):
     zipfiles = []
     soup = BeautifulSoup(response.text, 'html.parser')
-    # for link in soup.find_all(string=re.compile('\.zip')):
     for link in soup.find_all('a', href=True):
         if '.txt' and '.zip' in link.attrs['href']:
             zipfiles.append(link.attrs['href'])
@@ -42,10 +41,8 @@ def get_version(url):
 def main():
     print(f'[{datetime.datetime.now()}] running avare repo download.')
     url = URL('http://www.apps4av.org/new/')
-    # url = URL('http://avare.fyasko.net/new/')
     version = get_version(url)
     dir_path = './'+version
-    # dir_path = '/config/www/'+version
     try:
         os.chdir(dir_path)
     except:
