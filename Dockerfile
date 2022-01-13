@@ -22,7 +22,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 #Install Cron, WGET, and clean
 RUN apt-get update
 ## RUN apt-get -y install -qq --force-yes cron wget aria2 python3 python3-pip
-RUN apt-get -y install -qq --allow cron wget aria2 python3 python3-pip
+RUN apt-get -y install -qq cron wget aria2 python3 python3-pip
 RUN apt-get -y clean
 
 RUN pip3 install --no-cache-dir -r /app/requirements.txt
