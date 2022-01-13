@@ -1,0 +1,25 @@
+version: '3'
+services:
+  nginx:
+    image: ghcr.io/linuxserver/nginx
+    container_name: avare-web
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Chicago
+    volumes:
+      - $PWD/config:/config
+    ports:
+      - 80:80
+    restart: unless-stopped
+
+  repo:
+    container_name: avare-repo
+    build: ./
+    image: avare-repo
+    environment:
+      - PUID=1000
+      - PGID=1000
+        #- REPO='http://example.org/'  #Used this if you want to uses something other than avare's repo
+    volumes:
+      - $PWD/config/www:/config/www
