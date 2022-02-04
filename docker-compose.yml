@@ -21,5 +21,6 @@ services:
       - PUID=1000
       - PGID=1000
         #- REPO='http://example.org/'  #Used this if you want to uses something other than avare's repo
+      - LIMIT=yes
     volumes:
       - $PWD/config/www:/config/www

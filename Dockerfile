@@ -17,7 +17,7 @@ ENV TZ=$TZ
 ARG REPO='http://www.apps4av.org/new/'
 ENV REPO=$REPO
 #Limit Repo
-ARG LIMIT='no'
+ARG LIMIT=no
 ENV LIMIT=$LIMIT
 
 
