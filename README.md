@@ -4,13 +4,18 @@ Docker app that is used to pull down charts from avare
 # App Files
  - `download.sh` - Used to update weather, conus, and TFRs every 10 mins via container cronjob
  - `entrypoint.sh` - What docker runs at start up.
- - `input.txt` - Internal reference for download.sh. 
+ - `input.txt` - Internal reference for download.sh.
+ - `limit_list.txt` - File containing only the zip files you need. To be used with environment variable LIMIT.  
  - `repo.sh` - Called by container init or crontab to pull down the charts/etc. Will not pull a file if it has already been downloaded. Uses aria2c.
  - `repo_setup.py` - Script to create the environment. Called by entrypoint.sh
  - `requirements.txt` - Used during build to install the required python libraries.
  - `Dockerfile` - Used to build the container image. Uses Ubuntu as a base.
  - `docker-compose.yml` - Suggested docker setup for this app to create a repository and a frontend webserver (nginx)
  - `default` - Basic site configuration for nginx
+
+# Environment Variables
+ - `REPO` - Used to define a location of a different repository site. Default is Avare's.
+ - `LIMIT` - Limit the files downloaded by defining them in the limit_list.txt file. Options is `yes` or `no` lowercase.  Default is no.
 
 # How to Start
 Clone this project into your collection of docker containers directory.  It uses docker-compose for container management. When you first run the container it will build the avare-repo image so it might take a while to compile. 
