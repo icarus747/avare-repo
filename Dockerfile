@@ -13,8 +13,13 @@ RUN touch /var/log/cron.log
 #TimeZone
 ARG TZ=America/Chicago
 ENV TZ=$TZ
+#Repo
 ARG REPO='http://www.apps4av.org/new/'
 ENV REPO=$REPO
+#Limit Repo
+ARG LIMIT='no'
+ENV LIMIT=$LIMIT
+
 
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 

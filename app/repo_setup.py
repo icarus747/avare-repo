@@ -33,6 +33,11 @@ def update_php(version):
         php_file.write(version)
 
 
+def import_list():
+    with open('limit_list.txt', 'r') as limit_list:
+        return [line.strip() for line in limit_list]
+
+
 def parse_web(response):
     zipfiles = []
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -51,18 +56,23 @@ def main():
     print(f'[{datetime.datetime.now()}] running avare repo download.')
     url = URL(os.environ["REPO"])
     version = get_version(url)
-    # dir_path = './' # For local testing
-    dir_path = '/config/www/' # For Docker Container
+    # dir_path = './'  # For local testing
+    dir_path = '/config/www/'  # For Docker Container
     create_ver_dir(dir_path, version)
     os.chdir("../")
     update_php(version)
     version = version + '/'
-    response = requests.get(url / version)
-    zipfiles = parse_web(response)
+    if os.environ["LIMIT"] == 'no':
+        response = requests.get(url / version)
+        zipfiles = parse_web(response)
+    elif os.environ["LIMIT"] == 'yes':
+        zipfiles = import_list()
+    else:
+        print(f'[{datetime.datetime.now()}] Invalid LIMIT variable. Use yes/no.')
+        exit(128)
     generate_input_file(url / version, zipfiles)
     print(f'[{datetime.datetime.now()}] finished avare repo download.')
 
 
 if __name__ == '__main__':
     main()
-
