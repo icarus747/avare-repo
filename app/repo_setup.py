@@ -34,7 +34,7 @@ def update_php(version):
 
 
 def import_list():
-    with open('limit_list.txt', 'r') as limit_list:
+    with open('../../app/limit_list.txt', 'r') as limit_list:
         return [line.strip() for line in limit_list]
 
 
@@ -56,7 +56,7 @@ def main():
     print(f'[{datetime.datetime.now()}] running avare repo download.')
     url = URL(os.environ["REPO"])
     version = get_version(url)
-    # dir_path = './'  # For local testing
+    # dir_path = '../config/www/'  # For local testing
     dir_path = '/config/www/'  # For Docker Container
     create_ver_dir(dir_path, version)
     os.chdir("../")

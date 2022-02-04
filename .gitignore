@@ -1,3 +1,4 @@
 /venv/
 /app/20*
 *.zip
+/config/www
