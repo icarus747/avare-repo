@@ -18,6 +18,8 @@ BASH_ENV=/container.env
 
 00 12 30 * * /app/repo.sh >> /var/log/cron.log 2>&1
 
+21 * * * * /app/404.sh >> /var/log/cron.log 2>&1
+
 # This extra line makes it a valid cron" > scheduler.txt
 
 
