@@ -34,7 +34,12 @@ def update_php(version):
 
 
 def import_list():
-    with open('../../app/limit_list.txt', 'r') as limit_list:
+    try:
+        os.chdir('/config/limitdir/')
+    except:
+        os.mkdir('/config/limitdir/')
+        os.chdir('/config/limitdir/')
+    with open('limit_list.db', 'r') as limit_list:
         return [line.strip() for line in limit_list]
 
 

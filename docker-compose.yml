@@ -9,6 +9,7 @@ services:
       - TZ=America/Chicago
     volumes:
       - $PWD/config:/config
+      - $PWD/config/limitdir:/config/limitdir
     ports:
       - 80:80
     restart: unless-stopped
@@ -21,5 +22,6 @@ services:
       - PUID=1000
       - PGID=1000
         #- REPO='http://example.org/'  #Used this if you want to uses something other than avare's repo
+        #- LIMIT=yes
     volumes:
       - $PWD/config/www:/config/www
