@@ -9,7 +9,6 @@ services:
       - TZ=America/Chicago
     volumes:
       - $PWD/config:/config
-      - $PWD/config/limitdir:/config/limitdir
     ports:
       - 80:80
     restart: unless-stopped
@@ -25,3 +24,4 @@ services:
         #- LIMIT=yes
     volumes:
       - $PWD/config/www:/config/www
+      - $PWD/config/limitdir:/config/limitdir
