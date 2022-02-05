@@ -10,18 +10,19 @@ services:
     volumes:
       - $PWD/config:/config
     ports:
-      - 80:80
+      - 8000:80
     restart: unless-stopped
 
   repo:
-    container_name: avare-repo
+    container_name: avare-repo-limit
     build: ./
-    image: avare-repo
+    image: avare-repo-limit
     environment:
       - PUID=1000
       - PGID=1000
         #- REPO='http://example.org/'  #Used this if you want to uses something other than avare's repo
-        #- LIMIT=yes
+        - LIMIT=yes
     volumes:
       - $PWD/config/www:/config/www
       - $PWD/config/limitdir:/config/limitdir
+      - $PWD/config/log/nginx/access.log:/config/log/nginx/access.log
