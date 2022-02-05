@@ -35,10 +35,10 @@ def update_php(version):
 
 def import_list():
     try:
-        os.chdir('/config/limitdir/')
+        os.chdir('../limitdir/')
     except:
-        os.mkdir('/config/limitdir/')
-        os.chdir('/config/limitdir/')
+        os.mkdir('../limitdir/')
+        os.chdir('../limitdir/')
     with open('limit_list.db', 'r') as limit_list:
         return [line.strip() for line in limit_list]
 
@@ -61,8 +61,8 @@ def main():
     print(f'[{datetime.datetime.now()}] running avare repo download.')
     url = URL(os.environ["REPO"])
     version = get_version(url)
-    # dir_path = '../config/www/'  # For local testing
-    dir_path = '/config/www/'  # For Docker Container
+    dir_path = '../config/www/'  # For local testing
+    # dir_path = '/config/www/'  # For Docker Container
     create_ver_dir(dir_path, version)
     os.chdir("../")
     update_php(version)
@@ -75,6 +75,7 @@ def main():
     else:
         print(f'[{datetime.datetime.now()}] Invalid LIMIT variable. Use yes/no.')
         exit(128)
+    os.chdir("..\www")
     generate_input_file(url / version, zipfiles)
     print(f'[{datetime.datetime.now()}] finished avare repo download.')
 

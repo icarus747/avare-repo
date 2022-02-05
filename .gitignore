@@ -1,4 +1,7 @@
-/venv/
-/app/20*
-*.zip
+/config/keys/
+/config/log/
+/config/nginx/nginx.conf
+/config/php/
 /config/www
+/venv/
+*.zip
