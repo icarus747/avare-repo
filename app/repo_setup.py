@@ -49,7 +49,7 @@ def get_version(url):
 
 def main():
     print(f'[{datetime.datetime.now()}] running avare repo download.')
-    url = URL(os.environ["REPO"])
+    url = URL(os.environ["REPO"].strip("'"))
     version = get_version(url)
     # dir_path = './' # For local testing
     dir_path = '/config/www/' # For Docker Container

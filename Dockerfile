@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM ubuntu:20.04
 #FROM avare-repo-bash
 
 # Add crontab file in the cron directory
