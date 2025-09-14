@@ -11,8 +11,8 @@ from yarl import URL
 
 # wget --mirror --no-directories --no-verbose --directory-prefix=. http://www.apps4av.org/new/2101/databases.zip
 
-def generate_input_file(url, zipfiles):
-    with open('input.txt', 'w') as output_file:
+def generate_input_file(url, zipfiles, filename):
+    with open(filename, 'w') as output_file:
         for zipfile in zipfiles:
             fileurl = url / zipfile
             output_file.write(str(fileurl))
@@ -46,23 +46,37 @@ def get_version(url):
     response = requests.get(url / 'version.php')
     return response.text.strip('\n')
 
+def get_static(url):
+    static_url = url / "static"
+    print(f"Static URL: {static_url}")
+    return
 
 def main():
     print(f'[{datetime.datetime.now()}] running avare repo download.')
-    url = URL(os.environ["REPO"])
+    inputfiles = []
+    url = URL(os.environ["REPO"].strip("'"))
     version = get_version(url)
     # dir_path = './' # For local testing
     dir_path = '/config/www/' # For Docker Container
     create_ver_dir(dir_path, version)
+    create_ver_dir(dir_path, "static")
     os.chdir("../")
     update_php(version)
     version = version + '/'
     response = requests.get(url / version)
     zipfiles = parse_web(response)
-    generate_input_file(url / version, zipfiles)
+    for x in zipfiles:
+        inputfiles.append(version + x)
+    generate_input_file(url, inputfiles, "input.txt")
+    zipfiles = []
+    inputfiles = []
+    response = requests.get(url / "static")
+    zipfiles = parse_web(response)
+    for x in zipfiles:
+        inputfiles.append("static/" + x)
+    generate_input_file(url, inputfiles, "inputstatic.txt")
     print(f'[{datetime.datetime.now()}] finished avare repo download.')
 
 
 if __name__ == '__main__':
     main()
-
