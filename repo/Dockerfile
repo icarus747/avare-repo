@@ -14,7 +14,7 @@ RUN apt-get update && \
     apt-get install -y --no-install-recommends aria2
 
 # Copy the script into the container
-COPY  app/version_checker.py app/requirements.txt /app/
+COPY  repo/app/version_checker.py repo/app/requirements.txt /app/
 
 # # Install necessary Python packages
 # RUN pip install requests beautifulsoup4

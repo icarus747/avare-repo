@@ -15,7 +15,7 @@ RUN python -m venv venv && \
     pip install --upgrade pip requests beautifulsoup4
 
 # Copy the Python script into the /app directory
-COPY ./app/check_weather.py /app/check_weather.py
+COPY weather/app/check_weather.py /app/check_weather.py
 
 # Run the script using the virtual environment's Python
 CMD ["/app/venv/bin/python", "-u", "/app/check_weather.py"]

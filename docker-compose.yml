@@ -29,7 +29,7 @@ services:
     container_name: avare-wx
     build:
       context: ./
-      dockerfile: ./repo/Dockerfile
+      dockerfile: ./weather/Dockerfile
     image: avare-weather
     environment:
       - PUID=1000
