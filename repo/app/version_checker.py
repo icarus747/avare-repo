@@ -29,20 +29,20 @@ def get_remote_version():
 def get_local_version():
     """Reads the local version from the version.php file."""
     if os.path.exists(VERSION_FILE):
-        with open(VERSION_FILE, 'r') as f:
+        with open(VERSION_FILE, "r") as f:
             return f.read().strip()
     return None
 
 
 def get_local_static():
-    if len(glob('config/www/regions/static/*.zip')) >= 117:
+    if len(glob("config/www/regions/static/*.zip")) >= 117:
         return True
     return False
 
 
 def save_local_version(version):
     """Saves the given version to the version.php file."""
-    with open(VERSION_FILE, 'w') as f:
+    with open(VERSION_FILE, "w") as f:
         f.write(version)
 
 
@@ -52,12 +52,12 @@ def fetch_files_from_directory(version):
     try:
         response = requests.get(dir_url)
         response.raise_for_status()
-        soup = BeautifulSoup(response.text, 'html.parser')
+        soup = BeautifulSoup(response.text, "html.parser")
         files = []
 
-        for link in soup.find_all('a'):
-            href = link.get('href')
-            if href and (href.endswith('.zip') or href.endswith('.txt')):
+        for link in soup.find_all("a"):
+            href = link.get("href")
+            if href and (href.endswith(".zip") or href.endswith(".txt")):
                 full_path = dir_url + href
                 files.append(full_path)
 
@@ -69,9 +69,9 @@ def fetch_files_from_directory(version):
 
 def save_to_input_file(files):
     """Saves the list of file URLs to input.txt."""
-    with open(INPUT_FILE, 'w') as f:
+    with open(INPUT_FILE, "w") as f:
         for file_url in files:
-            f.write(file_url + '\n')
+            f.write(file_url + "\n")
 
 
 def download_files_with_aria2(version):
@@ -86,7 +86,7 @@ def download_files_with_aria2(version):
     try:
         subprocess.run(
             ["aria2c", "-i", INPUT_FILE, "-d", download_path, "--continue=true"],
-            check=True
+            check=True,
         )
         print(f"Downloaded files to {download_path}")
     except subprocess.CalledProcessError as e:
@@ -131,6 +131,6 @@ def check_for_static():
 
 if __name__ == "__main__":
     while True:
-        # check_for_updates()
+        check_for_updates()
         check_for_static()
         time.sleep(CHECK_INTERVAL_DAYS * 24 * 60 * 60)
