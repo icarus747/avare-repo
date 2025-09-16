@@ -1,4 +1,5 @@
 import os
+from glob import glob
 import time
 import subprocess
 import requests
@@ -9,6 +10,7 @@ VERSION_URL = "http://www.apps4av.org/regions/version.php"
 BASE_URL = "http://www.apps4av.org/regions/"
 CHECK_INTERVAL_DAYS = 30
 VERSION_FILE = "/config/www/regions/version.php"  # Local version file
+STATIC_PATH = "/config/www/regions/static"
 INPUT_FILE = "input.txt"
 DOWNLOAD_DIR = "/config/www/regions"  # Directory for downloading files
 
@@ -30,6 +32,12 @@ def get_local_version():
         with open(VERSION_FILE, 'r') as f:
             return f.read().strip()
     return None
+
+
+def get_local_static():
+    if len(glob('config/www/regions/static/*.zip')) >= 117:
+        return True
+    return False
 
 
 def save_local_version(version):
@@ -107,7 +115,22 @@ def check_for_updates():
         print("Local version is up-to-date.")
 
 
+def check_for_static():
+    local_static = get_local_static()
+    if not local_static:
+        print("Local static files not found.")
+        files = fetch_files_from_directory("static")
+        if files:
+            save_to_input_file(files)
+            download_files_with_aria2("static")
+        else:
+            print("No files found to update.")
+    else:
+        print("Local static files are up-to-date.")
+
+
 if __name__ == "__main__":
     while True:
-        check_for_updates()
+        # check_for_updates()
+        check_for_static()
         time.sleep(CHECK_INTERVAL_DAYS * 24 * 60 * 60)
