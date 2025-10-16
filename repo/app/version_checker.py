@@ -36,7 +36,7 @@ def get_local_version():
 
 
 def get_local_static():
-    if len(glob("config/www/regions/static/*.zip")) >= 117:
+    if len(glob(f"{STATIC_PATH}/*.zip")) >= 117:
         return True
     return False
 
