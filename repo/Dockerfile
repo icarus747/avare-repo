@@ -6,6 +6,10 @@ WORKDIR /app
 ENV TZ=America/Chicago
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
+ARG REPO='http://www.apps4av.org/regions/'
+ENV REPO=$REPO
+
+
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 

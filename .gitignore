@@ -2,3 +2,4 @@
 config/*
 !config/nginx/site*/default.conf
 input.txt
+.env

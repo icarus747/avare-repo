@@ -4,10 +4,11 @@ import time
 import subprocess
 import requests
 from bs4 import BeautifulSoup
+from yarl import URL
 
 # Constants
 VERSION_URL = "http://www.apps4av.org/regions/version.php"
-BASE_URL = "http://www.apps4av.org/regions/"
+BASE_URL = URL(os.environ["REPO"])
 CHECK_INTERVAL_DAYS = 30
 VERSION_FILE = "/config/www/regions/version.php"  # Local version file
 STATIC_PATH = "/config/www/regions/static"
@@ -130,6 +131,7 @@ def check_for_static():
 
 
 if __name__ == "__main__":
+    print(f'****Using {BASE_URL} as source.****')
     while True:
         check_for_updates()
         check_for_static()

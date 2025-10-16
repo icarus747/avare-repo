@@ -18,11 +18,11 @@ services:
     build:
       context: ./
       dockerfile: ./repo/Dockerfile
-    image: avare-repo
+    image: avare_repo:latest
     environment:
       - PUID=1000
       - PGID=1000
-        #- REPO='http://example.org/'  #Used this if you want to uses something other than avare's repo
+      # - REPO=${REPO}  #Used this if you want to uses something other than avare's repo. Place in .env file
     volumes:
       - $PWD/config/www/regions:/config/www/regions
   wx:
@@ -30,10 +30,10 @@ services:
     build:
       context: ./
       dockerfile: ./weather/Dockerfile
-    image: avare-weather
+    image: avare_weather:latest
     environment:
       - PUID=1000
       - PGID=1000
-        #- REPO='http://example.org/'  #Used this if you want to uses something other than avare's repo
+        #- REPO='${REPO}  #Used this if you want to uses something other than avare's repo. Place in .env file
     volumes:
       - $PWD/config/www/regions:/config/www/regions
